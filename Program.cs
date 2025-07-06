@@ -10,7 +10,7 @@ namespace Final_Project
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
             var secretKey = jwtSettings["SecretKey"];
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
