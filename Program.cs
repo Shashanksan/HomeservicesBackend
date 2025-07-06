@@ -10,6 +10,7 @@ namespace Final_Project
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+           
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
             var secretKey = jwtSettings["SecretKey"];
@@ -29,7 +30,8 @@ namespace Final_Project
 
 
             builder.Services.AddAuthorization();
-
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            builder.WebHost.UseUrls($"http://*:{port}");
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
